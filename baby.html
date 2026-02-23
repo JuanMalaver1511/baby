@@ -1,0 +1,647 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Baby Shower · Amelia</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Great+Vibes&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --cream:#fdf6f0;--pl:#f5cdd6;--pm:#e8a0b0;--pd:#c97a8e;
+  --mv:#b06070;--mvd:#8c4a5a;--br:#a67860;--brl:#c9a888;
+  --gold:#d4a96a;--white:#fffbf8;
+}
+html,body{width:100%;min-height:100%;background:var(--cream);overflow-x:hidden;}
+
+/* ===== INTRO ===== */
+#intro{
+  position:fixed;inset:0;z-index:200;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  background:linear-gradient(160deg,#fdf0f3 0%,#f5cdd6 40%,#e8c5d0 100%);
+  transition:opacity .8s ease,transform .8s ease;
+}
+#intro.hide{opacity:0;transform:scale(1.06);pointer-events:none;}
+
+/* --- intro scene container --- */
+.intro-scene{
+  position:relative;
+  width:min(320px,86vw);
+  height:320px;
+  margin-bottom:28px;
+}
+
+/* clouds CSS */
+.cl{position:absolute;background:white;border-radius:50px;opacity:.85;}
+.cl::before,.cl::after{content:'';position:absolute;background:white;border-radius:50%;}
+.cl1{width:90px;height:26px;bottom:40px;left:8px;}
+.cl1::before{width:42px;height:42px;top:-22px;left:12px;}
+.cl1::after{width:28px;height:28px;top:-14px;left:42px;}
+.cl2{width:58px;height:18px;bottom:28px;right:14px;opacity:.6;}
+.cl2::before{width:28px;height:28px;top:-16px;left:8px;}
+.cl2::after{width:20px;height:20px;top:-12px;left:30px;}
+
+/* ---- INTRO: OSO ---- */
+/* Ponlo en el centro-inferior igual que el SVG original */
+.intro-bear-img{
+  position:absolute;
+  bottom:50px;
+  left:50%;
+  transform:translateX(-50%);
+  width:150px;          /* ajusta según tu imagen */
+  height:auto;
+  object-fit:contain;
+  animation:bfloat 3s ease-in-out infinite;
+  z-index:3;
+}
+
+/* ---- INTRO: GLOBOS ---- */
+/* Esquina superior-izquierda, igual que el SVG de globos */
+.intro-bal-img{
+  position:absolute;
+  top:8px;
+  left:8px;
+  width:120px;          /* ajusta según tu imagen */
+  height:auto;
+  object-fit:contain;
+  animation:balfloat 3.5s ease-in-out infinite;
+  z-index:2;
+}
+
+/* bow SVG (se mantiene SVG, pero puedes cambiar también a img si quieres) */
+.ibow{position:absolute;top:0;right:24px;width:88px;animation:bwig 4s ease-in-out infinite;transform-origin:center bottom;z-index:2;}
+
+/* stars */
+.star{position:absolute;opacity:.8;animation:spulse 2s ease-in-out infinite alternate;}
+.star svg{fill:var(--gold);}
+.s1{top:28px;right:126px;width:22px;}
+.s2{top:68px;right:12px;width:16px;animation-delay:.5s;}
+.s3{top:115px;right:3px;width:20px;animation-delay:1s;}
+.s4{bottom:78px;right:12px;width:18px;animation-delay:.3s;}
+.s5{bottom:78px;left:3px;width:14px;animation-delay:.7s;}
+
+@keyframes bfloat{0%,100%{transform:translateX(-50%) translateY(0);}50%{transform:translateX(-50%) translateY(-11px);}}
+@keyframes bwig{0%,100%{transform:rotate(-4deg);}50%{transform:rotate(4deg);}}
+@keyframes balfloat{0%,100%{transform:translateY(0) rotate(-3deg);}50%{transform:translateY(-8px) rotate(3deg);}}
+@keyframes spulse{from{transform:scale(.8) rotate(-10deg);opacity:.5;}to{transform:scale(1.1) rotate(10deg);opacity:1;}}
+
+.ititle{font-family:'Playfair Display',serif;font-size:clamp(2rem,8vw,3rem);color:var(--mvd);text-align:center;letter-spacing:2px;line-height:1;}
+.ititle span{display:block;font-family:'Great Vibes',cursive;font-size:clamp(2.4rem,9vw,3.6rem);color:var(--mv);font-weight:400;letter-spacing:1px;}
+.isub{font-family:'Jost',sans-serif;font-weight:300;font-size:.82rem;color:var(--br);letter-spacing:4px;text-transform:uppercase;margin:10px 0 34px;text-align:center;}
+
+.btn-open{
+  position:relative;display:flex;align-items:center;gap:12px;
+  padding:17px 42px;background:linear-gradient(135deg,var(--mvd),var(--mv));
+  color:white;border:none;border-radius:60px;
+  font-family:'Jost',sans-serif;font-size:.95rem;font-weight:500;
+  letter-spacing:2px;text-transform:uppercase;cursor:pointer;
+  box-shadow:0 8px 30px rgba(140,74,90,.4);
+  transition:transform .3s cubic-bezier(.34,1.56,.64,1),box-shadow .3s;
+}
+.btn-open:hover{transform:translateY(-4px) scale(1.04);box-shadow:0 16px 40px rgba(140,74,90,.5);}
+.btn-open:active{transform:scale(.96);}
+.btn-open i{animation:env 2s ease-in-out infinite;}
+@keyframes env{0%,100%{transform:rotate(0);}20%{transform:rotate(-10deg);}40%{transform:rotate(10deg);}60%{transform:rotate(0);}}
+
+/* petals */
+.petal{position:fixed;pointer-events:none;opacity:0;animation:pfloat linear infinite;}
+@keyframes pfloat{0%{transform:translateY(-5vh) rotate(0deg);opacity:0;}5%{opacity:.6;}95%{opacity:.6;}100%{transform:translateY(105vh) rotate(720deg) translateX(40px);opacity:0;}}
+
+/* ===== INVITATION ===== */
+#invitation{
+  opacity:0;transform:translateY(32px) scale(.96);
+  transition:opacity .9s ease,transform .9s cubic-bezier(.22,1,.36,1);
+  pointer-events:none;padding:30px 16px 50px;
+  display:flex;justify-content:center;
+}
+#invitation.show{opacity:1;transform:translateY(0) scale(1);pointer-events:all;}
+
+.card{max-width:480px;width:100%;background:var(--white);border-radius:36px;
+  box-shadow:0 30px 80px rgba(140,74,90,.18),0 4px 20px rgba(0,0,0,.05);overflow:hidden;position:relative;}
+
+/* HERO */
+.hero{background:var(--cream);position:relative;overflow:visible;}
+.arch-bg{position:absolute;top:0;left:50%;transform:translateX(-50%);width:82%;height:310px;background:var(--pl);border-radius:0 0 50% 50%;z-index:0;}
+
+.hero-top{position:relative;z-index:2;display:flex;justify-content:flex-end;padding:0 28px;height:48px;}
+.card-bow{width:78px;margin-top:-8px;animation:bwig 4s ease-in-out infinite;transform-origin:center bottom;}
+
+.hero-title-area{position:relative;z-index:2;text-align:right;padding:0 28px 0 0;}
+.hbaby{font-family:'Playfair Display',serif;font-size:clamp(2.8rem,9vw,4.2rem);color:var(--br);letter-spacing:4px;line-height:.9;}
+.hshower{font-family:'Great Vibes',cursive;font-size:clamp(2rem,7.5vw,3.2rem);color:var(--mv);line-height:1;display:block;}
+
+/* --- hero characters row --- */
+.hero-chars{
+  position:relative;z-index:3;
+  display:flex;
+  height:220px;
+  align-items:flex-end;
+  margin-top:-38px;
+  overflow:visible;
+}
+
+/* ---- CARD: GLOBOS (imagen) ---- */
+.card-bal-img{
+  width:140px;          /* ajusta según tu imagen */
+  height:auto;
+  object-fit:contain;
+  margin-left:6px;
+  margin-bottom:6px;
+  flex-shrink:0;
+  animation:balfloat 3.5s ease-in-out infinite;
+  position:relative;
+  z-index:2;
+}
+
+/* ---- CARD: OSO (imagen) ---- */
+.card-bear-img{
+  width:160px;          /* ajusta según tu imagen */
+  height:auto;
+  object-fit:contain;
+  margin-left:-32px;    /* solapa un poco con los globos */
+  margin-bottom:0;
+  flex-shrink:0;
+  animation:bfloat2 3s ease-in-out infinite;
+  position:relative;
+  z-index:3;
+}
+@keyframes bfloat2{0%,100%{transform:translateY(0);}50%{transform:translateY(-10px);}}
+
+.hcloud{position:absolute;z-index:1;}
+.hc1{bottom:28px;left:0;width:98px;}
+.hc2{bottom:8px;right:0;width:68px;opacity:.7;}
+.hstar{position:absolute;z-index:2;}
+.hs1{top:48px;right:18px;width:24px;animation:spulse 2s ease-in-out infinite;}
+.hs2{top:86px;right:4px;width:18px;animation:spulse 2s .5s ease-in-out infinite;}
+.hs3{bottom:58px;right:8px;width:22px;animation:spulse 2s 1s ease-in-out infinite;}
+
+/* ARCH BODY */
+.arch-body{
+  margin:-10px 18px 0;
+  background:var(--mvd);
+  border-radius:50% 50% 26px 26px / 38px 38px 26px 26px;
+  padding:38px 26px 30px;text-align:center;
+  position:relative;z-index:4;
+  box-shadow:0 8px 30px rgba(140,74,90,.3);
+}
+.arch-into{font-family:'Jost',sans-serif;font-weight:300;font-size:.85rem;color:rgba(255,255,255,.8);letter-spacing:1px;margin-bottom:7px;}
+.arch-name{font-family:'Great Vibes',cursive;font-size:clamp(3rem,12vw,4.5rem);color:white;line-height:1.1;text-shadow:0 2px 20px rgba(0,0,0,.15);}
+.adiv{display:flex;align-items:center;gap:12px;margin:14px 0 12px;color:rgba(255,255,255,.45);}
+.adiv::before,.adiv::after{content:'';flex:1;height:1px;background:rgba(255,255,255,.3);}
+.adiv i{font-size:.6rem;}
+.date-row{display:flex;align-items:center;justify-content:center;gap:14px;}
+.dlabel{font-family:'Jost',sans-serif;font-size:.68rem;font-weight:500;letter-spacing:3px;text-transform:uppercase;color:rgba(255,255,255,.65);}
+.dday{font-family:'Playfair Display',serif;font-size:3.5rem;color:white;line-height:1;}
+.dmonth{font-family:'Jost',sans-serif;font-size:.72rem;letter-spacing:3px;text-transform:uppercase;color:rgba(255,255,255,.65);display:block;margin-bottom:2px;}
+.dtime{font-family:'Jost',sans-serif;font-size:.68rem;font-weight:500;letter-spacing:3px;text-transform:uppercase;color:rgba(255,255,255,.65);}
+.aaddr{font-family:'Jost',sans-serif;font-weight:300;font-size:.82rem;color:rgba(255,255,255,.8);margin:13px 0 9px;letter-spacing:.5px;}
+.acta{font-family:'Great Vibes',cursive;font-size:1.9rem;color:white;margin-bottom:4px;}
+
+/* COUNTDOWN */
+.cdw{padding:22px 18px 8px;text-align:center;}
+.cdlbl{font-family:'Jost',sans-serif;font-size:.68rem;letter-spacing:3px;text-transform:uppercase;color:var(--br);margin-bottom:13px;display:flex;align-items:center;gap:10px;justify-content:center;}
+.cdlbl::before,.cdlbl::after{content:'';flex:1;height:1px;background:var(--pl);}
+.cdbs{display:flex;justify-content:center;gap:9px;}
+.cdb{flex:1;max-width:80px;background:linear-gradient(145deg,var(--cream),var(--pl));border-radius:16px;padding:13px 5px;border:1.5px solid var(--pm);box-shadow:0 4px 15px rgba(200,120,140,.1);transition:transform .25s;}
+.cdb:hover{transform:translateY(-3px);}
+.cdnum{font-family:'Playfair Display',serif;font-size:2rem;color:var(--mvd);line-height:1;}
+.cdunit{font-family:'Jost',sans-serif;font-size:.58rem;letter-spacing:2px;text-transform:uppercase;color:var(--br);margin-top:3px;}
+
+/* ===== RABBITS (imagen) ===== */
+/*
+  Coloca tu imagen de conejos en el mismo folder que el HTML
+  y ponle el nombre: conejos.png  (o ajusta el src en el HTML)
+  
+  La imagen se muestra centrada, ancho completo del card con padding lateral.
+  Se recomienda que tu imagen PNG tenga fondo transparente.
+*/
+.rabbits-wrap{
+  padding:10px 10px 0;
+  display:flex;
+  justify-content:center;
+  align-items:flex-end;
+}
+.rabbits-img{
+  width:100%;           /* ocupa todo el ancho disponible */
+  max-width:380px;      /* no crece más que esto */
+  height:auto;
+  object-fit:contain;
+  animation:rbounce 2.8s ease-in-out infinite;
+  margin-bottom: -100px;
+}
+@keyframes rbounce{0%,100%{transform:translateY(0);}50%{transform:translateY(-7px);}}
+
+/* FLOWERS */
+.flowers{display:flex;justify-content:center;align-items:center;gap:7px;padding:11px 18px 0;flex-wrap:wrap;}
+.fl{width:26px;opacity:.75;animation:spulse 2.5s ease-in-out infinite;}
+.fl:nth-child(even){width:20px;animation-delay:.5s;}
+
+/* CONFIRM */
+.confirmsec{padding:13px 22px 5px;text-align:center;}
+.ctxt{font-family:'Jost',sans-serif;font-size:.76rem;letter-spacing:1px;color:var(--brl);}
+.cname{font-family:'Playfair Display',serif;font-size:1rem;color:var(--mvd);display:block;margin-top:3px;}
+
+/* BUTTONS */
+.abtns{display:flex;flex-direction:column;gap:9px;padding:14px 18px 22px;}
+.abtn{display:flex;align-items:center;justify-content:center;gap:10px;padding:14px 18px;border-radius:50px;border:none;cursor:pointer;font-family:'Jost',sans-serif;font-size:.88rem;font-weight:500;letter-spacing:1.5px;text-transform:uppercase;transition:all .3s cubic-bezier(.34,1.56,.64,1);}
+.abtn:active{transform:scale(.95)!important;}
+.abtn-main{background:linear-gradient(135deg,var(--mvd),var(--mv));color:white;box-shadow:0 8px 25px rgba(140,74,90,.35);}
+.abtn-main:hover{transform:translateY(-3px);box-shadow:0 14px 35px rgba(140,74,90,.45);}
+.abtn-sec{background:transparent;color:var(--mvd);border:1.5px solid var(--pm);}
+.abtn-sec:hover{background:var(--pl);transform:translateY(-2px);}
+
+/* MODAL */
+.overlay{display:none;position:fixed;inset:0;z-index:300;background:rgba(100,40,55,.5);backdrop-filter:blur(10px);align-items:center;justify-content:center;padding:18px;}
+.overlay.active{display:flex;animation:fin .3s both;}
+@keyframes fin{from{opacity:0;}to{opacity:1;}}
+.modal{background:var(--white);border-radius:28px;padding:34px 24px;max-width:400px;width:100%;box-shadow:0 40px 100px rgba(0,0,0,.2);animation:min .4s cubic-bezier(.34,1.56,.64,1) both;position:relative;}
+@keyframes min{from{transform:scale(.75) translateY(40px);opacity:0;}to{transform:scale(1) translateY(0);opacity:1;}}
+.mclose{position:absolute;top:13px;right:14px;background:var(--pl);border:none;border-radius:50%;width:32px;height:32px;cursor:pointer;color:var(--mvd);font-size:.82rem;transition:transform .25s;}
+.mclose:hover{transform:rotate(90deg);}
+.mtitle{font-family:'Playfair Display',serif;font-size:1.8rem;color:var(--mvd);text-align:center;margin-bottom:4px;}
+.msub{text-align:center;color:var(--brl);font-size:.83rem;margin-bottom:20px;font-family:'Jost',sans-serif;}
+.fg{margin-bottom:13px;}
+.fg label{display:block;font-family:'Jost',sans-serif;font-size:.68rem;font-weight:500;letter-spacing:2px;text-transform:uppercase;color:var(--mv);margin-bottom:5px;}
+.fg input,.fg select{width:100%;padding:12px 15px;border:1.5px solid var(--pl);border-radius:13px;font-family:'Jost',sans-serif;font-size:.88rem;color:var(--mvd);background:var(--cream);outline:none;transition:border-color .2s,box-shadow .2s;}
+.fg input:focus,.fg select:focus{border-color:var(--mv);box-shadow:0 0 0 3px rgba(140,74,90,.12);}
+.bsubmit{width:100%;margin-top:7px;background:linear-gradient(135deg,var(--mvd),var(--mv));color:white;border:none;border-radius:50px;padding:15px;font-family:'Jost',sans-serif;font-size:.88rem;letter-spacing:2px;text-transform:uppercase;cursor:pointer;box-shadow:0 8px 25px rgba(140,74,90,.35);transition:all .3s;}
+.bsubmit:hover{transform:translateY(-2px);box-shadow:0 14px 35px rgba(140,74,90,.45);}
+.sview{display:none;text-align:center;padding:20px 10px;}
+.sicon{font-size:3.5rem;color:var(--mv);margin-bottom:12px;animation:bi .6s cubic-bezier(.34,1.56,.64,1) both;}
+@keyframes bi{from{transform:scale(0);}to{transform:scale(1);}}
+.sview h3{font-family:'Playfair Display',serif;color:var(--mvd);font-size:1.6rem;margin-bottom:8px;}
+.sview p{font-family:'Jost',sans-serif;color:var(--brl);font-size:.88rem;}
+
+.card-foot{text-align:center;padding:15px;font-family:'Jost',sans-serif;font-size:.68rem;letter-spacing:2px;text-transform:uppercase;color:var(--pm);border-top:1px solid var(--pl);}
+
+/* confetti */
+.cp{position:fixed;border-radius:3px;animation:cpf linear forwards;pointer-events:none;z-index:999;}
+@keyframes cpf{to{transform:translateY(110vh) rotate(720deg);opacity:0;}}
+
+/* ===== RESPONSIVE ===== */
+@media(max-width:390px){
+  .arch-body{margin:0 10px;}
+  .card-bal-img{width:110px;}
+  .card-bear-img{width:130px;margin-left:-22px;}
+  .intro-bear-img{width:120px;}
+  .intro-bal-img{width:95px;}
+  .arch-name{font-size:2.8rem;}
+}
+</style>
+</head>
+<body>
+
+<!-- ===== INTRO ===== -->
+<div id="intro">
+  <div class="intro-scene">
+
+    <!-- Estrellas -->
+    <div class="star s1"><svg viewBox="0 0 24 24"><path d="M12 2l2.4 7.4H22l-6.2 4.5 2.4 7.4L12 17l-6.2 4.3 2.4-7.4L2 9.4h7.6z"/></svg></div>
+    <div class="star s2"><svg viewBox="0 0 24 24"><path d="M12 2l2.4 7.4H22l-6.2 4.5 2.4 7.4L12 17l-6.2 4.3 2.4-7.4L2 9.4h7.6z"/></svg></div>
+    <div class="star s3"><svg viewBox="0 0 24 24"><path d="M12 2l2.4 7.4H22l-6.2 4.5 2.4 7.4L12 17l-6.2 4.3 2.4-7.4L2 9.4h7.6z"/></svg></div>
+    <div class="star s4"><svg viewBox="0 0 24 24"><path d="M12 2l2.4 7.4H22l-6.2 4.5 2.4 7.4L12 17l-6.2 4.3 2.4-7.4L2 9.4h7.6z"/></svg></div>
+    <div class="star s5"><svg viewBox="0 0 24 24"><path d="M12 2l2.4 7.4H22l-6.2 4.5 2.4 7.4L12 17l-6.2 4.3 2.4-7.4L2 9.4h7.6z"/></svg></div>
+
+    <!-- Lazo SVG (puedes cambiar a img también si tienes lazo.png) -->
+    <svg class="ibow" viewBox="0 0 120 80">
+      <ellipse cx="38" cy="40" rx="34" ry="22" fill="#f5a0b8" transform="rotate(-15 38 40)"/>
+      <ellipse cx="38" cy="40" rx="24" ry="14" fill="#e8809c" transform="rotate(-15 38 40)"/>
+      <ellipse cx="82" cy="40" rx="34" ry="22" fill="#f5a0b8" transform="rotate(15 82 40)"/>
+      <ellipse cx="82" cy="40" rx="24" ry="14" fill="#e8809c" transform="rotate(15 82 40)"/>
+      <circle cx="60" cy="40" r="12" fill="#f5a0b8"/><circle cx="60" cy="40" r="7" fill="#e8809c"/>
+      <path d="M52 50 Q44 70 36 78 Q40 72 52 58Z" fill="#f5a0b8"/>
+      <path d="M68 50 Q76 70 84 78 Q80 72 68 58Z" fill="#f5a0b8"/>
+      <ellipse cx="44" cy="32" rx="8" ry="4" fill="rgba(255,255,255,0.35)" transform="rotate(-15 44 32)"/>
+      <ellipse cx="76" cy="32" rx="8" ry="4" fill="rgba(255,255,255,0.35)" transform="rotate(15 76 32)"/>
+    </svg>
+
+    <!--
+      🎈 GLOBOS — pon tu imagen en el mismo folder que el HTML
+         Nombre sugerido: globos.png (PNG con fondo transparente)
+         Cambia el src si tu archivo tiene otro nombre.
+    -->
+    <img src="globos.png" alt="globos" class="intro-bal-img">
+
+    <!--
+      🐻 OSO — tu imagen actual
+         Nombre sugerido: oso.png
+    -->
+    <img src="oso.png" alt="osito" class="intro-bear-img">
+
+    <!-- Nubes CSS -->
+    <div class="cl cl1"></div>
+    <div class="cl cl2"></div>
+  </div>
+
+  <div class="ititle">BABY<span>Shower</span></div>
+  <p class="isub">Una nueva vida llega</p>
+  <button class="btn-open" onclick="openInvitation()">
+    <i class="fa-regular fa-envelope-open"></i> Abrir Invitación
+  </button>
+</div>
+
+<!-- ===== MODAL RSVP ===== -->
+<div class="overlay" id="overlay">
+  <div class="modal">
+    <button class="mclose" onclick="closeModal()"><i class="fa-solid fa-xmark"></i></button>
+    <div id="mform">
+      <h2 class="mtitle">Confirmar</h2>
+      <p class="msub">¡Cuéntanos si podrás acompañarnos!</p>
+      <div class="fg">
+        <label><i class="fa-regular fa-user" style="margin-right:5px"></i>Tu nombre</label>
+        <input type="text" id="gname" placeholder="Ej: María García">
+      </div>
+      <div class="fg">
+        <label><i class="fa-regular fa-circle-check" style="margin-right:5px"></i>¿Asistirás?</label>
+        <select id="gatt">
+          <option value="">Seleccionar...</option>
+          <option value="si">Sí, allí estaré</option>
+          <option value="no">No podré ir</option>
+          <option value="tal">Tal vez</option>
+        </select>
+      </div>
+      <!-- CAMPO NUEVO: número de personas -->
+<div class="fg">
+  <label><i class="fa-solid fa-users" style="margin-right:5px"></i>¿Cuántos asistirán?</label>
+  <select id="gcount">
+    <option value="1">Solo yo (1 persona)</option>
+    <option value="2">2 personas</option>
+    <option value="3">3 personas</option>
+    <option value="4">4 personas</option>
+    <option value="más de 4">Más de 4</option>
+  </select>
+</div>
+      <div class="fg">
+        <label><i class="fa-regular fa-message" style="margin-right:5px"></i>Mensaje para mamá</label>
+        <input type="text" id="gmsg" placeholder="Escribe algo lindo...">
+      </div>
+      <button class="bsubmit" onclick="submitRSVP()">
+        <i class="fa-solid fa-paper-plane" style="margin-right:7px"></i>Confirmar asistencia
+      </button>
+    </div>
+    <div class="sview" id="sview">
+      <div class="sicon"><i class="fa-solid fa-heart"></i></div>
+      <h3>¡Gracias!</h3>
+      <p>Tu respuesta fue registrada.<br>¡Nos vemos en el baby shower!</p>
+    </div>
+  </div>
+</div>
+
+<!-- ===== INVITATION ===== -->
+<div id="invitation">
+  <div class="card">
+
+    <!-- HERO -->
+    <div class="hero">
+      <div class="arch-bg"></div>
+
+      <!-- Estrellas doradas -->
+      <svg class="hstar hs1" viewBox="0 0 24 24"><path d="M12 2l2.4 7.4H22l-6.2 4.5 2.4 7.4L12 17l-6.2 4.3 2.4-7.4L2 9.4h7.6z" fill="#d4a96a"/></svg>
+      <svg class="hstar hs2" viewBox="0 0 24 24"><path d="M12 2l2.4 7.4H22l-6.2 4.5 2.4 7.4L12 17l-6.2 4.3 2.4-7.4L2 9.4h7.6z" fill="#d4a96a"/></svg>
+      <svg class="hstar hs3" viewBox="0 0 24 24"><path d="M12 2l2.4 7.4H22l-6.2 4.5 2.4 7.4L12 17l-6.2 4.3 2.4-7.4L2 9.4h7.6z" fill="#d4a96a"/></svg>
+
+      <!-- Lazo top derecha -->
+      <div class="hero-top">
+        <svg class="card-bow" viewBox="0 0 120 80">
+          <ellipse cx="38" cy="40" rx="34" ry="22" fill="#f5a0b8" transform="rotate(-15 38 40)"/>
+          <ellipse cx="38" cy="40" rx="24" ry="14" fill="#e8809c" transform="rotate(-15 38 40)"/>
+          <ellipse cx="82" cy="40" rx="34" ry="22" fill="#f5a0b8" transform="rotate(15 82 40)"/>
+          <ellipse cx="82" cy="40" rx="24" ry="14" fill="#e8809c" transform="rotate(15 82 40)"/>
+          <circle cx="60" cy="40" r="12" fill="#f5a0b8"/><circle cx="60" cy="40" r="7" fill="#e8809c"/>
+          <path d="M52 50 Q44 70 36 78 Q40 72 52 58Z" fill="#f5a0b8"/>
+          <path d="M68 50 Q76 70 84 78 Q80 72 68 58Z" fill="#f5a0b8"/>
+          <ellipse cx="44" cy="32" rx="8" ry="4" fill="rgba(255,255,255,0.35)" transform="rotate(-15 44 32)"/>
+          <ellipse cx="76" cy="32" rx="8" ry="4" fill="rgba(255,255,255,0.35)" transform="rotate(15 76 32)"/>
+        </svg>
+      </div>
+
+      <!-- Título -->
+      <div class="hero-title-area">
+        <div class="hbaby">BABY</div>
+        <span class="hshower">Shower</span>
+      </div>
+
+      <!-- Personajes: GLOBOS + OSO -->
+      <div class="hero-chars">
+
+        <!--
+          🎈 GLOBOS en la tarjeta
+          Mismo archivo: globos.png
+          margin-left pequeño para pegar a la izquierda
+        -->
+        <img src="globos.png" alt="globos" class="card-bal-img">
+
+        <!--
+          🐻 OSO en la tarjeta
+          Mismo archivo: oso.png
+          margin-left negativo para que se solape con los globos (efecto natural)
+        -->
+        <img src="oso.png" alt="osito" class="card-bear-img">
+
+        <!-- Nubes de fondo -->
+        <svg class="hcloud hc1" viewBox="0 0 120 60">
+          <rect x="10" y="28" width="100" height="28" rx="14" fill="white" opacity=".9"/>
+          <circle cx="35" cy="28" r="18" fill="white" opacity=".9"/>
+          <circle cx="60" cy="22" r="22" fill="white" opacity=".9"/>
+          <circle cx="85" cy="28" r="16" fill="white" opacity=".9"/>
+        </svg>
+        <svg class="hcloud hc2" viewBox="0 0 100 55">
+          <rect x="8" y="26" width="82" height="24" rx="12" fill="white" opacity=".7"/>
+          <circle cx="28" cy="26" r="15" fill="white" opacity=".7"/>
+          <circle cx="52" cy="20" r="18" fill="white" opacity=".7"/>
+          <circle cx="72" cy="26" r="13" fill="white" opacity=".7"/>
+        </svg>
+      </div>
+    </div><!-- /hero -->
+
+    <!-- ARCH BODY -->
+    <div class="arch-body">
+      <p class="arch-into">Acompáñanos a celebrar la llegada de nuestra hija</p>
+      <div class="arch-name" id="invname">Sara Luciana</div>
+      <div class="adiv"><i class="fa-solid fa-star"></i></div>
+      <div class="date-row">
+        <div class="dlabel">Sábado</div>
+        <div><span class="dmonth">MAR</span><div class="dday">28</div></div>
+        <div class="dtime">12:30 P.M.</div>
+      </div>
+      <div class="adiv"><i class="fa-solid fa-star"></i></div>
+      <p class="aaddr"><i class="fa-solid fa-location-dot" style="margin-right:6px;opacity:.7"></i> ---, Motavita</p>
+      <p class="acta">¡Te esperamos!</p>
+    </div>
+
+    <!-- COUNTDOWN -->
+    <div class="cdw">
+      <p class="cdlbl"><i class="fa-regular fa-clock"></i> Faltan para el gran día</p>
+      <div class="cdbs">
+        <div class="cdb"><div class="cdnum" id="cdD">00</div><div class="cdunit">días</div></div>
+        <div class="cdb"><div class="cdnum" id="cdH">00</div><div class="cdunit">horas</div></div>
+        <div class="cdb"><div class="cdnum" id="cdM">00</div><div class="cdunit">min</div></div>
+        <div class="cdb"><div class="cdnum" id="cdS">00</div><div class="cdunit">seg</div></div>
+      </div>
+    </div>
+
+    <!--
+      🐰 CONEJOS — pon tu imagen en el mismo folder que el HTML
+         Nombre sugerido: conejos.png (PNG con fondo transparente)
+         La imagen se estira hasta el ancho del card (máx 380px) y rebota suavemente.
+         Cambia el src si tu archivo tiene otro nombre.
+    -->
+    <div class="rabbits-wrap">
+      <img src="conejos.png" alt="conejos" class="rabbits-img">
+    </div>
+
+    <!-- FLOWERS -->
+    <div class="flowers">
+      <svg class="fl" viewBox="0 0 40 40"><circle cx="20" cy="20" r="5" fill="#f5a0b8"/><ellipse cx="20" cy="9" rx="5" ry="8" fill="#f5cdd6"/><ellipse cx="20" cy="31" rx="5" ry="8" fill="#f5cdd6"/><ellipse cx="9" cy="20" rx="8" ry="5" fill="#f5cdd6"/><ellipse cx="31" cy="20" rx="8" ry="5" fill="#f5cdd6"/><ellipse cx="12" cy="12" rx="5" ry="8" fill="#fce7f3" transform="rotate(45 12 12)"/><ellipse cx="28" cy="12" rx="5" ry="8" fill="#fce7f3" transform="rotate(-45 28 12)"/><ellipse cx="12" cy="28" rx="5" ry="8" fill="#fce7f3" transform="rotate(-45 12 28)"/><ellipse cx="28" cy="28" rx="5" ry="8" fill="#fce7f3" transform="rotate(45 28 28)"/></svg>
+      <svg class="fl" viewBox="0 0 40 40"><circle cx="20" cy="20" r="5" fill="#d4a96a"/><ellipse cx="20" cy="9" rx="4" ry="7" fill="#f5cdd6"/><ellipse cx="20" cy="31" rx="4" ry="7" fill="#f5cdd6"/><ellipse cx="9" cy="20" rx="7" ry="4" fill="#f5cdd6"/><ellipse cx="31" cy="20" rx="7" ry="4" fill="#f5cdd6"/></svg>
+      <svg class="fl" viewBox="0 0 40 40"><circle cx="20" cy="20" r="5" fill="#f5a0b8"/><ellipse cx="20" cy="9" rx="5" ry="8" fill="#e8c5d0"/><ellipse cx="20" cy="31" rx="5" ry="8" fill="#e8c5d0"/><ellipse cx="9" cy="20" rx="8" ry="5" fill="#e8c5d0"/><ellipse cx="31" cy="20" rx="8" ry="5" fill="#e8c5d0"/></svg>
+      <svg class="fl" viewBox="0 0 40 40"><circle cx="20" cy="20" r="5" fill="#c97a8e"/><ellipse cx="20" cy="9" rx="5" ry="8" fill="#f5cdd6"/><ellipse cx="20" cy="31" rx="5" ry="8" fill="#f5cdd6"/><ellipse cx="9" cy="20" rx="8" ry="5" fill="#f5cdd6"/><ellipse cx="31" cy="20" rx="8" ry="5" fill="#f5cdd6"/></svg>
+      <svg class="fl" viewBox="0 0 40 40"><circle cx="20" cy="20" r="5" fill="#d4a96a"/><ellipse cx="20" cy="9" rx="4" ry="7" fill="#f5cdd6"/><ellipse cx="20" cy="31" rx="4" ry="7" fill="#f5cdd6"/><ellipse cx="9" cy="20" rx="7" ry="4" fill="#f5cdd6"/><ellipse cx="31" cy="20" rx="7" ry="4" fill="#f5cdd6"/></svg>
+      <svg class="fl" viewBox="0 0 40 40"><circle cx="20" cy="20" r="5" fill="#f5a0b8"/><ellipse cx="20" cy="9" rx="5" ry="8" fill="#f5cdd6"/><ellipse cx="20" cy="31" rx="5" ry="8" fill="#f5cdd6"/><ellipse cx="9" cy="20" rx="8" ry="5" fill="#f5cdd6"/><ellipse cx="31" cy="20" rx="8" ry="5" fill="#f5cdd6"/><ellipse cx="12" cy="12" rx="5" ry="8" fill="#fce7f3" transform="rotate(45 12 12)"/><ellipse cx="28" cy="12" rx="5" ry="8" fill="#fce7f3" transform="rotate(-45 28 12)"/></svg>
+    </div>
+
+    <!-- CONFIRM -->
+    <div class="confirmsec">
+      <p class="ctxt">
+        <i class="fa-solid fa-phone" style="margin-right:6px;color:var(--pd)"></i>
+        Confirmar asistencia con:
+        <span class="cname">Paula Suesca · 3173043879</span>
+      </p>
+    </div>
+
+    <!-- BUTTONS -->
+    <div class="abtns">
+      <button class="abtn abtn-main" onclick="document.getElementById('overlay').classList.add('active')">
+        <i class="fa-regular fa-envelope"></i> Confirmar Asistencia
+      </button>
+      <button class="abtn abtn-sec" onclick="shareIt()">
+        <i class="fa-solid fa-share-nodes"></i> Compartir Invitación
+      </button>
+      <button class="abtn abtn-sec" onclick="addCalendar()">
+        <i class="fa-regular fa-calendar-plus"></i> Agregar al Calendario
+      </button>
+      <button class="abtn abtn-sec" onclick="confetti()">
+        <i class="fa-solid fa-wand-magic-sparkles"></i> ¡Celebrar!
+      </button>
+    </div>
+
+    <div class="card-foot">
+      <i class="fa-solid fa-heart" style="color:var(--pd);margin-right:5px"></i>
+      Hecha con amor para nuestra princesita
+      <i class="fa-solid fa-heart" style="color:var(--pd);margin-left:5px"></i>
+    </div>
+  </div>
+</div>
+
+<script>
+// petals
+const pc=['#f5cdd6','#e8a0b0','#fce7f3','#e8c5d0','#f5a0b8'];
+for(let i=0;i<14;i++){
+  const p=document.createElement('div');p.className='petal';
+  p.innerHTML=`<svg width="11" height="13" viewBox="0 0 12 14"><ellipse cx="6" cy="7" rx="5" ry="7" fill="${pc[i%5]}" opacity="0.7"/></svg>`;
+  p.style.cssText=`left:${Math.random()*100}vw;animation-duration:${Math.random()*10+8}s;animation-delay:${Math.random()*8}s;`;
+  document.body.appendChild(p);
+}
+
+function openInvitation(){
+  const b=document.querySelector('.btn-open');
+  b.innerHTML='<i class="fa-solid fa-spinner fa-spin"></i> Abriendo...';
+  b.disabled=true;
+  setTimeout(()=>{
+    document.getElementById('intro').classList.add('hide');
+    setTimeout(()=>{
+      document.getElementById('intro').style.display='none';
+      document.getElementById('invitation').classList.add('show');
+      window.scrollTo({ top: 0, behavior: 'instant' });
+      confetti();
+    },800);
+  },600);
+}
+
+// countdown — cambia la fecha aquí
+const tgt=new Date('2026-03-28T10:30:00');
+function tick(){
+  const diff=tgt-new Date();
+  if(diff<=0){
+    document.querySelector('.cdw').innerHTML='<p style="text-align:center;font-family:Great Vibes,cursive;font-size:2rem;color:var(--mvd);padding:20px">¡Hoy es el gran día!</p>';
+    return;
+  }
+  const d=Math.floor(diff/86400000),h=Math.floor(diff%86400000/3600000),m=Math.floor(diff%3600000/60000),s=Math.floor(diff%60000/1000);
+  document.getElementById('cdD').textContent=String(d).padStart(2,'0');
+  document.getElementById('cdH').textContent=String(h).padStart(2,'0');
+  document.getElementById('cdM').textContent=String(m).padStart(2,'0');
+  document.getElementById('cdS').textContent=String(s).padStart(2,'0');
+}
+tick();setInterval(tick,1000);
+
+function closeModal(){
+  document.getElementById('overlay').classList.remove('active');
+  setTimeout(()=>{document.getElementById('mform').style.display='block';document.getElementById('sview').style.display='none';},300);
+}
+document.getElementById('overlay').addEventListener('click',e=>{
+  if(e.target===document.getElementById('overlay'))closeModal();
+});
+
+function submitRSVP(){
+  const n = document.getElementById('gname').value.trim();
+  const a = document.getElementById('gatt').value;
+  const count = document.getElementById('gcount').value;
+  const msg = document.getElementById('gmsg').value.trim();
+
+  if(!n || !a){ alert('Por favor completa tu nombre y si asistirás'); return; }
+
+  // Texto de asistencia legible
+  const attText = {
+    'si':  'Sí, allí estaré',
+    'no':  'No podré ir',
+    'tal': 'Tal vez'
+  }[a] || a;
+
+  // Mensaje que llegará por WhatsApp
+  const waMsg =
+    `Confirmación Baby Shower · Sara Luciana \n\n` +
+    `Nombre: ${n}\n` +
+    `${attText}\n` +
+    `Personas: ${count}\n` +
+    `Mensaje: ${msg || '—'}\n\n` +
+    `_Enviado desde la invitación digital_ `;
+
+  // ⚠️  PON AQUÍ TU NÚMERO (solo dígitos, sin + ni espacios)
+  const phone = '573202594521';
+
+  const waURL = `https://wa.me/${phone}?text=${encodeURIComponent(waMsg)}`;
+
+  // Mostrar pantalla de éxito
+  document.getElementById('mform').style.display = 'none';
+  document.getElementById('sview').style.display  = 'block';
+  confetti();
+
+  // Abrir WhatsApp después de un momento (para que vean la pantalla de éxito)
+  setTimeout(() => { window.open(waURL, '_blank'); }, 800);
+}
+
+function shareIt(){
+  const n=document.getElementById('invname').textContent;
+  const txt=`Estás invitada al Baby Shower de ${n}!\nSábado 28 de Marzo · 10:30 AM\n -- ,Motavita\n¡Te esperamos!`;
+  if(navigator.share)navigator.share({title:`Baby Shower · ${n}`,text:txt});
+  else navigator.clipboard.writeText(txt).then(()=>alert('Invitación copiada al portapapeles'));
+}
+
+function addCalendar(){
+  const n=encodeURIComponent('Baby Shower · '+document.getElementById('invname').textContent);
+  const l=encodeURIComponent('--, Motavita');
+  window.open(`https://calendar.google.com/calendar/render?action=TEMPLATE&text=${n}&dates=20241130T103000/20241130T150000&location=${l}`,'_blank');
+}
+
+function confetti(){
+  const cols=['#f472b6','#c9a888','#f5cdd6','#d4a96a','#e8809c','#b06070','#fce7f3'];
+  for(let i=0;i<72;i++){
+    const c=document.createElement('div');c.className='cp';
+    c.style.cssText=`left:${Math.random()*100}vw;top:-8px;width:${Math.random()*10+6}px;height:${Math.random()*10+6}px;background:${cols[Math.floor(Math.random()*cols.length)]};border-radius:${Math.random()>.5?'50%':'3px'};animation-duration:${Math.random()*2+2}s;animation-delay:${Math.random()*.5}s;`;
+    document.body.appendChild(c);setTimeout(()=>c.remove(),3500);
+  }
+}
+</script>
+</body>
+</html>
