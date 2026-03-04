@@ -68,6 +68,16 @@ html,body{width:100%;min-height:100%;background:var(--cream);overflow-x:hidden;}
   animation:balfloat 3.5s ease-in-out infinite;
   z-index:2;
 }
+.intro-lazo-img{
+  position:absolute;
+  top:0;
+  right:24px;
+  width:88px;          /* ajusta según tu imagen */
+  height:auto;
+  object-fit:contain;
+  animation:blazo 3.5s ease-in-out infinite;
+  z-index:2;
+}
 
 /* bow SVG (se mantiene SVG, pero puedes cambiar también a img si quieres) */
 .ibow{position:absolute;top:0;right:24px;width:88px;animation:bwig 4s ease-in-out infinite;transform-origin:center bottom;z-index:2;}
@@ -127,7 +137,7 @@ html,body{width:100%;min-height:100%;background:var(--cream);overflow-x:hidden;}
 .hero-top{position:relative;z-index:2;display:flex;justify-content:flex-end;padding:0 28px;height:48px;}
 .card-bow{width:78px;margin-top:-8px;animation:bwig 4s ease-in-out infinite;transform-origin:center bottom;}
 
-.hero-title-area{position:relative;z-index:2;text-align:right;padding:0 28px 0 0;}
+.hero-title-area{position:relative;z-index:2;text-align:right;padding:0 28px 0 0; margin-top: 22px; margin-right: 10px;}
 .hbaby{font-family:'Playfair Display',serif;font-size:clamp(2.8rem,9vw,4.2rem);color:var(--br);letter-spacing:4px;line-height:.9;}
 .hshower{font-family:'Great Vibes',cursive;font-size:clamp(2rem,7.5vw,3.2rem);color:var(--mv);line-height:1;display:block;}
 
@@ -165,6 +175,18 @@ html,body{width:100%;min-height:100%;background:var(--cream);overflow-x:hidden;}
   animation:bfloat2 3s ease-in-out infinite;
   position:relative;
   z-index:3;
+}
+.card-bear2-img{
+  width:400px;          /* ajusta según tu imagen */
+  height:auto;
+  object-fit:contain;
+  margin-left:-100px;    /* solapa un poco con los globos */
+  margin-bottom:0;
+  flex-shrink:0;
+  animation:bfloat2 3s ease-in-out infinite;
+  position:relative;
+  z-index:3;
+  
 }
 @keyframes bfloat2{0%,100%{transform:translateY(0);}50%{transform:translateY(-10px);}}
 
@@ -305,17 +327,7 @@ html,body{width:100%;min-height:100%;background:var(--cream);overflow-x:hidden;}
     <div class="star s5"><svg viewBox="0 0 24 24"><path d="M12 2l2.4 7.4H22l-6.2 4.5 2.4 7.4L12 17l-6.2 4.3 2.4-7.4L2 9.4h7.6z"/></svg></div>
 
     <!-- Lazo SVG (puedes cambiar a img también si tienes lazo.png) -->
-    <svg class="ibow" viewBox="0 0 120 80">
-      <ellipse cx="38" cy="40" rx="34" ry="22" fill="#f5a0b8" transform="rotate(-15 38 40)"/>
-      <ellipse cx="38" cy="40" rx="24" ry="14" fill="#e8809c" transform="rotate(-15 38 40)"/>
-      <ellipse cx="82" cy="40" rx="34" ry="22" fill="#f5a0b8" transform="rotate(15 82 40)"/>
-      <ellipse cx="82" cy="40" rx="24" ry="14" fill="#e8809c" transform="rotate(15 82 40)"/>
-      <circle cx="60" cy="40" r="12" fill="#f5a0b8"/><circle cx="60" cy="40" r="7" fill="#e8809c"/>
-      <path d="M52 50 Q44 70 36 78 Q40 72 52 58Z" fill="#f5a0b8"/>
-      <path d="M68 50 Q76 70 84 78 Q80 72 68 58Z" fill="#f5a0b8"/>
-      <ellipse cx="44" cy="32" rx="8" ry="4" fill="rgba(255,255,255,0.35)" transform="rotate(-15 44 32)"/>
-      <ellipse cx="76" cy="32" rx="8" ry="4" fill="rgba(255,255,255,0.35)" transform="rotate(15 76 32)"/>
-    </svg>
+     <img src="lazo.png" alt="" class="intro-lazo-img">
 
     <!--
       🎈 GLOBOS — pon tu imagen en el mismo folder que el HTML
@@ -404,17 +416,7 @@ html,body{width:100%;min-height:100%;background:var(--cream);overflow-x:hidden;}
 
       <!-- Lazo top derecha -->
       <div class="hero-top">
-        <svg class="card-bow" viewBox="0 0 120 80">
-          <ellipse cx="38" cy="40" rx="34" ry="22" fill="#f5a0b8" transform="rotate(-15 38 40)"/>
-          <ellipse cx="38" cy="40" rx="24" ry="14" fill="#e8809c" transform="rotate(-15 38 40)"/>
-          <ellipse cx="82" cy="40" rx="34" ry="22" fill="#f5a0b8" transform="rotate(15 82 40)"/>
-          <ellipse cx="82" cy="40" rx="24" ry="14" fill="#e8809c" transform="rotate(15 82 40)"/>
-          <circle cx="60" cy="40" r="12" fill="#f5a0b8"/><circle cx="60" cy="40" r="7" fill="#e8809c"/>
-          <path d="M52 50 Q44 70 36 78 Q40 72 52 58Z" fill="#f5a0b8"/>
-          <path d="M68 50 Q76 70 84 78 Q80 72 68 58Z" fill="#f5a0b8"/>
-          <ellipse cx="44" cy="32" rx="8" ry="4" fill="rgba(255,255,255,0.35)" transform="rotate(-15 44 32)"/>
-          <ellipse cx="76" cy="32" rx="8" ry="4" fill="rgba(255,255,255,0.35)" transform="rotate(15 76 32)"/>
-        </svg>
+     <img src="lazo.png" alt="" class="intro-lazo-img">
       </div>
 
       <!-- Título -->
@@ -431,14 +433,13 @@ html,body{width:100%;min-height:100%;background:var(--cream);overflow-x:hidden;}
           Mismo archivo: globos.png
           margin-left pequeño para pegar a la izquierda
         -->
-        <img src="globos.png" alt="globos" class="card-bal-img">
 
         <!--
           🐻 OSO en la tarjeta
           Mismo archivo: oso.png
           margin-left negativo para que se solape con los globos (efecto natural)
         -->
-        <img src="oso.png" alt="osito" class="card-bear-img">
+        <img src="osoglobos.png" alt="osito" class="card-bear2-img">
 
         <!-- Nubes de fondo -->
         <svg class="hcloud hc1" viewBox="0 0 120 60">
@@ -463,11 +464,11 @@ html,body{width:100%;min-height:100%;background:var(--cream);overflow-x:hidden;}
       <div class="adiv"><i class="fa-solid fa-star"></i></div>
       <div class="date-row">
         <div class="dlabel">Sábado</div>
-        <div><span class="dmonth">MAR</span><div class="dday">28</div></div>
-        <div class="dtime">12:30 P.M.</div>
+        <div><span class="dmonth">MARZO</span><div class="dday">28</div></div>
+        <div class="dtime">2:00 P.M.</div>
       </div>
       <div class="adiv"><i class="fa-solid fa-star"></i></div>
-      <p class="aaddr"><i class="fa-solid fa-location-dot" style="margin-right:6px;opacity:.7"></i> ---, Motavita</p>
+      <p class="aaddr"><i class="fa-solid fa-location-dot" style="margin-right:6px;opacity:.7"></i> Finca los girasoles, Motavita</p>
       <p class="acta">¡Te esperamos!</p>
     </div>
 
@@ -576,7 +577,7 @@ function openInvitation(){
 }
 
 // countdown — cambia la fecha aquí
-const tgt=new Date('2026-03-28T10:30:00');
+const tgt=new Date('2026-03-28T14:00:00');
 function tick(){
   const diff=tgt-new Date();
   if(diff<=0){
